@@ -1,6 +1,6 @@
 package model.productbacklog;
 
-import collections.Iterator;
+import collections.Iterable;
 import model.productbacklogitem.ProductBacklogItem;
 
 /**
@@ -8,6 +8,9 @@ import model.productbacklogitem.ProductBacklogItem;
  * and add to the list, but only the product owner can rank items. The Product
  * Owner and the Development Team negotiate which Product Backlog Items should
  * be moved to the Sprint Backlog.
+ *
+ * In the Model View Presenter pattern, this interface answers "how do I specify
+ * my data" and "how do I change my data".
  *
  * @author Jacob Malter
  *
@@ -26,25 +29,31 @@ public interface ProductBacklog<P extends ProductBacklogItem> {
    void add(P item);
 
    /**
-    * Returns an iterator of Product Backlog Items from the top to the bottom of
-    * the Product Backlog.
+    * Returns an iterable of every Product Backlog Item where getTitle contains
+    * the given title, getUserStory contains the given userStory, and
+    * getAcceptanceCriteria contains the given acceptanceCriteria from the top
+    * to the bottom of the Product Backlog.
     * 
-    * This implementation returns the same instances of Product Backlog Item
-    * that belong to the invoking Product Backlog.
+    * This implementation uses {@link String#contains(CharSequence)} to query
+    * for Product Backlog Item and returns the same instances of Product Backlog
+    * Item that belong to the invoking Product Backlog. Therefore, the empty
+    * string accepts every Product Backlog Item, and if any given parameter is
+    * null, throws NullPointerException.
     * 
-    * Ultimately, I chose Iterator as the return type because I can easily
+    * Ultimately, I chose Iterable as the return type because I can easily
     * change the underlying data structure without touching this method, and I
-    * chose an iterator over an array because arrays are dangerous to return
-    * with generic types.
+    * chose an Iterable over an array because arrays are dangerous to return
+    * with generic types. Additionally, Iterable implements
+    * {@link Iterable#forEach(collections.Consumer)} to easily interact with
+    * Product Backlog Items.
     * 
-    * Only this method queries the Product Backlog, and every other method
-    * changes the Product Backlog. In other words, only this method is a
-    * selection, and every other method is a command.
-    * 
-    * @return an iterator of Product Backlog Items from the top to the bottom of
-    *         the Product Backlog
+    * @return an iterable of every Product Backlog Item where getTitle contains
+    *         the given title, getUserStory contains the given userStory, and
+    *         getAcceptanceCriteria contains the given acceptanceCriteria from
+    *         the top to the bottom of the Product Backlog
     */
-   Iterator<P> iterator();
+   Iterable<P> select(String title, String userStory,
+      String acceptanceCriteria);
 
    /**
     * Removes and returns a Product Backlog Item from the top of the Product

@@ -9,6 +9,9 @@ package model.productbacklogitem;
  * size, cost, or time. Small: consumes few person-weeks/days of work. Testable:
  * requires customer tests.
  * 
+ * In the Model View Presenter pattern, this interface answers "what is my
+ * data".
+ * 
  * @author Jacob Malter
  *
  */

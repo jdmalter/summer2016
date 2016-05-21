@@ -2,7 +2,8 @@ package model.productbacklog;
 
 import java.util.Objects;
 
-import collections.Iterator;
+import collections.Iterable;
+import collections.LinkedList;
 import collections.List;
 import model.productbacklogitem.ProductBacklogItem;
 
@@ -41,9 +42,25 @@ abstract class ListProductBacklog<P extends ProductBacklogItem>
    }
 
    @Override
-   public Iterator<P> iterator() {
-      // iterator starts at index zero and ends at index size
-      return list.iterator();
+   public Iterable<P> select(String title, String userStory,
+      String acceptanceCriteria) {
+      // check for null parameters that cause contains to throw an exception
+      Objects.requireNonNull(title, "title must not be null");
+      Objects.requireNonNull(userStory, "userStory must not be null");
+      Objects.requireNonNull(acceptanceCriteria,
+         "acceptanceCriteria must not be null");
+
+      // LinkedList because every operation is an insertion
+      List<P> selection = new LinkedList<P>();
+
+      list.forEach(item -> {
+         if (item.getTitle().contains(title)
+            && item.getUserStory().contains(userStory)
+            && item.getAcceptanceCriteria().contains(acceptanceCriteria))
+            selection.add(item);
+      });
+
+      return selection;
    }
 
    @Override
