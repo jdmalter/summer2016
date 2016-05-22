@@ -2,6 +2,7 @@ package model.productbacklog;
 
 import collections.Iterator;
 import model.productbacklogitem.ProductBacklogItem;
+import utilities.Predicate;
 
 /**
  * Represents a force ranked list of Product Backlog Items. Everyone can query
@@ -58,8 +59,26 @@ public interface ProductBacklog<P extends ProductBacklogItem> {
     *         getAcceptanceCriteria contains the given acceptanceCriteria from
     *         the top to the bottom of the Product Backlog
     */
-   Iterator<P> select(String title, String userStory,
-      String acceptanceCriteria);
+
+   /**
+    * Adds every Product Backlog Item that the given Predicate accepts into the
+    * iterator. If the given predicate is null, throws NullPointerException.
+    * 
+    * Ultimately, I chose Iterator as the return type because I can easily
+    * change the underlying data structure without touching this method, and I
+    * chose an Iterator over an array because arrays are dangerous to return
+    * with generic types. Additionally, Iterator implements
+    * {@link Iterator#forEachNext(collections.Consumer)} to easily interact with
+    * Product Backlog Items.
+    * 
+    * @param predicate
+    *        Functional interface to accept any subclass of ProductBacklogItem
+    *        and return boolean
+    * @return an iterator of every Product Backlog Item where the Predicate
+    *         accepts the given Product Backlog Item from the top to the bottom
+    *         of the Product Backlog.
+    */
+   Iterator<P> select(Predicate<P> predicate);
 
    /**
     * Gets and returns a Product Backlog Item from the top of the Product

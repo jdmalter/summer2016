@@ -187,7 +187,7 @@ public class ListTest {
 
    /**
     * Test method for
-    * {@link collections.List#reverseForEach(collections.Consumer)}.
+    * {@link collections.List#reverseForEach(utilities.Consumer)}.
     */
    @Test
    public void testReverseForEach() {

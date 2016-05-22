@@ -6,6 +6,7 @@ import collections.Iterator;
 import collections.LinkedList;
 import collections.List;
 import model.productbacklogitem.ProductBacklogItem;
+import utilities.Predicate;
 
 /**
  * An abstract class that implements ProductBacklog with a List interface. It is
@@ -42,22 +43,14 @@ abstract class ListProductBacklog<P extends ProductBacklogItem>
    }
 
    @Override
-   public Iterator<P> select(String title, String userStory,
-      String acceptanceCriteria) {
-      // check for null parameters that cause contains to throw an exception
-      Objects.requireNonNull(title, "title must not be null");
-      Objects.requireNonNull(userStory, "userStory must not be null");
-      Objects.requireNonNull(acceptanceCriteria,
-         "acceptanceCriteria must not be null");
+   public Iterator<P> select(Predicate<P> predicate) {
+      Objects.requireNonNull(predicate, "predicate must not be null");
 
       // LinkedList because every operation is an insertion
       List<P> selection = new LinkedList<P>();
 
       list.forEach(item -> {
-         if (item.getTitle().contains(title)
-            && item.getUserStory().contains(userStory)
-            && item.getAcceptanceCriteria().contains(acceptanceCriteria))
-            selection.add(item);
+         if (predicate.test(item)) selection.add(item);
       });
 
       return selection.iterator();

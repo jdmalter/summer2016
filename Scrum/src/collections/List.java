@@ -2,6 +2,8 @@ package collections;
 
 import java.util.Objects;
 
+import utilities.Consumer;
+
 /**
  * An abstraction for a collection where every element has an integer position
  * from zero to the number of elements. Contains methods to add elements at

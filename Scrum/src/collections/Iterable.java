@@ -2,6 +2,8 @@ package collections;
 
 import java.util.Objects;
 
+import utilities.Consumer;
+
 /**
  * Function interface which allows an iteration of elements to be consumed by a
  * consumer object.

@@ -2,6 +2,8 @@ package collections;
 
 import java.util.Objects;
 
+import utilities.Consumer;
+
 /**
  * Represents an abstraction for viewing elements.
  * 

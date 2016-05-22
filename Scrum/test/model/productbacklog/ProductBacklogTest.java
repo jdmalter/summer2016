@@ -76,15 +76,18 @@ public class ProductBacklogTest {
 
          int index = 0;
          for (Iterator<ProductBacklogItem> selection =
-            productBacklog.select("", "", ""); selection.hasNext();) {
+            productBacklog.select(item -> {
+               return true;
+            });selection.hasNext();) {
             ProductBacklogItem item = selection.next();
             assertTrue(items[index++] == item);
             item.setTitle("id: " + index);
          }
 
          int id = 1;
-         Iterator<ProductBacklogItem> iterator =
-            productBacklog.select("" + id, "", "");
+         Iterator<ProductBacklogItem> iterator = productBacklog.select(item -> {
+            return item.getTitle().contains("1");
+         });
          assertTrue(iterator.hasNext()
             && ("id: " + id).equals(iterator.next().getTitle())
             && !iterator.hasNext());
@@ -92,26 +95,13 @@ public class ProductBacklogTest {
          iterator = null;
 
          try {
-            iterator = productBacklog.select(null, "", "");
-            fail("title is null");
-         } catch (NullPointerException ex) {
-            assertNull(iterator);
-         }
-
-         try {
-            iterator = productBacklog.select("", null, "");
-            fail("userStory is null");
-         } catch (NullPointerException ex) {
-            assertNull(iterator);
-         }
-
-         try {
-            iterator = productBacklog.select("", "", null);
-            fail("acceptanceCriteria is null");
+            iterator = productBacklog.select(null);
+            fail("predicate is null");
          } catch (NullPointerException ex) {
             assertNull(iterator);
          }
       }
+
    }
 
    /**

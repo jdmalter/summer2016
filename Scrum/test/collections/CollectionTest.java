@@ -71,7 +71,7 @@ public class CollectionTest {
 
    /**
     * Test method for
-    * {@link collections.Iterable#forEach(collections.Consumer)}.
+    * {@link collections.Iterable#forEach(utilities.Consumer)}.
     */
    @Test
    public void testForEach() {
