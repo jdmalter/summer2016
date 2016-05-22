@@ -11,8 +11,7 @@ package collections;
 public interface Collection<E> extends Iterable<E> {
 
    /**
-    * Adds the given element into the invoking collection. Returns true if an
-    * element is added, and returns false otherwise.
+    * Adds the given element into the invoking collection.
     * 
     * @param e
     *        element object
@@ -21,9 +20,6 @@ public interface Collection<E> extends Iterable<E> {
    boolean add(E e);
 
    /**
-    * Returns true if a collection has zero elements (where {@link #size()}
-    * returns 0), and returns false otherwise.
-    * 
     * This implementation behaves like {@code return #size() == 0}.
     * 
     * @return true if a collection has zero elements (where {@link #size()}
@@ -34,8 +30,6 @@ public interface Collection<E> extends Iterable<E> {
    }
 
    /**
-    * Returns the number of elements.
-    * 
     * @return the number of elements
     */
    int size();

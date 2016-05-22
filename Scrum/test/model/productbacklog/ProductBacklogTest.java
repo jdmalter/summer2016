@@ -7,7 +7,6 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import collections.Iterable;
 import collections.Iterator;
 import model.productbacklogitem.ProductBacklogItem;
 import model.productbacklogitem.SizeProductBacklogItem;
@@ -76,10 +75,8 @@ public class ProductBacklogTest {
       for (ProductBacklog<ProductBacklogItem> productBacklog : productBacklogs) {
 
          int index = 0;
-         for (
-            Iterator<ProductBacklogItem> selection =
-               productBacklog.select("", "", "").iterator();
-            selection.hasNext();) {
+         for (Iterator<ProductBacklogItem> selection =
+            productBacklog.select("", "", ""); selection.hasNext();) {
             ProductBacklogItem item = selection.next();
             assertTrue(items[index++] == item);
             item.setTitle("id: " + index);
@@ -87,32 +84,32 @@ public class ProductBacklogTest {
 
          int id = 1;
          Iterator<ProductBacklogItem> iterator =
-            productBacklog.select("" + id, "", "").iterator();
+            productBacklog.select("" + id, "", "");
          assertTrue(iterator.hasNext()
             && ("id: " + id).equals(iterator.next().getTitle())
             && !iterator.hasNext());
 
-         Iterable<ProductBacklogItem> iterable = null;
+         iterator = null;
 
          try {
-            iterable = productBacklog.select(null, "", "");
+            iterator = productBacklog.select(null, "", "");
             fail("title is null");
          } catch (NullPointerException ex) {
-            assertNull(iterable);
+            assertNull(iterator);
          }
 
          try {
-            iterable = productBacklog.select("", null, "");
+            iterator = productBacklog.select("", null, "");
             fail("userStory is null");
          } catch (NullPointerException ex) {
-            assertNull(iterable);
+            assertNull(iterator);
          }
 
          try {
-            iterable = productBacklog.select("", "", null);
+            iterator = productBacklog.select("", "", null);
             fail("acceptanceCriteria is null");
          } catch (NullPointerException ex) {
-            assertNull(iterable);
+            assertNull(iterator);
          }
       }
    }

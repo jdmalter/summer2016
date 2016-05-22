@@ -2,7 +2,7 @@ package model.productbacklog;
 
 import java.util.Objects;
 
-import collections.Iterable;
+import collections.Iterator;
 import collections.LinkedList;
 import collections.List;
 import model.productbacklogitem.ProductBacklogItem;
@@ -42,7 +42,7 @@ abstract class ListProductBacklog<P extends ProductBacklogItem>
    }
 
    @Override
-   public Iterable<P> select(String title, String userStory,
+   public Iterator<P> select(String title, String userStory,
       String acceptanceCriteria) {
       // check for null parameters that cause contains to throw an exception
       Objects.requireNonNull(title, "title must not be null");
@@ -60,7 +60,14 @@ abstract class ListProductBacklog<P extends ProductBacklogItem>
             selection.add(item);
       });
 
-      return selection;
+      return selection.iterator();
+   }
+
+   @Override
+   public P peek() {
+      if (list.isEmpty())
+         throw new IllegalStateException("Product Backlog must not be empty");
+      return list.get(0); // index of zero is top of Product Backlog
    }
 
    @Override
@@ -79,6 +86,11 @@ abstract class ListProductBacklog<P extends ProductBacklogItem>
          "index must be less than the number of elements in the Product Backlog minus one");
 
       list.swap(index, index + 1); // index + 1 is below index
+   }
+
+   @Override
+   public int size() {
+      return list.size();
    }
 
 }

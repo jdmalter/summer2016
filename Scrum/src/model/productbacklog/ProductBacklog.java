@@ -1,6 +1,6 @@
 package model.productbacklog;
 
-import collections.Iterable;
+import collections.Iterator;
 import model.productbacklogitem.ProductBacklogItem;
 
 /**
@@ -10,7 +10,7 @@ import model.productbacklogitem.ProductBacklogItem;
  * be moved to the Sprint Backlog.
  *
  * In the Model View Presenter pattern, this interface answers "how do I specify
- * my data" and "how do I change my data".
+ * my data".
  *
  * @author Jacob Malter
  *
@@ -29,31 +29,45 @@ public interface ProductBacklog<P extends ProductBacklogItem> {
    void add(P item);
 
    /**
-    * Returns an iterable of every Product Backlog Item where getTitle contains
-    * the given title, getUserStory contains the given userStory, and
-    * getAcceptanceCriteria contains the given acceptanceCriteria from the top
-    * to the bottom of the Product Backlog.
+    * This implementation behaves like {@code return #size() == 0}.
     * 
+    * @return true if a collection has zero elements (where {@link #size()}
+    *         returns 0), and returns false otherwise
+    */
+   default boolean isEmpty() {
+      return size() == 0;
+   }
+
+   /**
     * This implementation uses {@link String#contains(CharSequence)} to query
-    * for Product Backlog Item and returns the same instances of Product Backlog
-    * Item that belong to the invoking Product Backlog. Therefore, the empty
-    * string accepts every Product Backlog Item, and if any given parameter is
-    * null, throws NullPointerException.
+    * for Product Backlog Item and returns the same instances (which can be
+    * modified by setter methods) of Product Backlog Item that belong to the
+    * invoking Product Backlog. Therefore, the empty string accepts every
+    * Product Backlog Item, and if any given parameter is null, throws
+    * NullPointerException.
     * 
-    * Ultimately, I chose Iterable as the return type because I can easily
+    * Ultimately, I chose Iterator as the return type because I can easily
     * change the underlying data structure without touching this method, and I
-    * chose an Iterable over an array because arrays are dangerous to return
-    * with generic types. Additionally, Iterable implements
-    * {@link Iterable#forEach(collections.Consumer)} to easily interact with
+    * chose an Iterator over an array because arrays are dangerous to return
+    * with generic types. Additionally, Iterator implements
+    * {@link Iterator#forEachNext(collections.Consumer)} to easily interact with
     * Product Backlog Items.
     * 
-    * @return an iterable of every Product Backlog Item where getTitle contains
+    * @return an iterator of every Product Backlog Item where getTitle contains
     *         the given title, getUserStory contains the given userStory, and
     *         getAcceptanceCriteria contains the given acceptanceCriteria from
     *         the top to the bottom of the Product Backlog
     */
-   Iterable<P> select(String title, String userStory,
+   Iterator<P> select(String title, String userStory,
       String acceptanceCriteria);
+
+   /**
+    * Gets and returns a Product Backlog Item from the top of the Product
+    * Backlog. If the Product Backlog is empty, throws IllegalStateException.
+    * 
+    * @return a Product Backlog Item from the top of the Product Backlog
+    */
+   P peek();
 
    /**
     * Removes and returns a Product Backlog Item from the top of the Product
@@ -75,5 +89,10 @@ public interface ProductBacklog<P extends ProductBacklogItem> {
     *        position in Product Backlog
     */
    void swap(int index);
+
+   /**
+    * @return the number of Product Backlog Items
+    */
+   int size();
 
 }
