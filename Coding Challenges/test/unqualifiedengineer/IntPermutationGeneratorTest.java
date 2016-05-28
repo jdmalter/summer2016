@@ -20,7 +20,7 @@ public class IntPermutationGeneratorTest {
    /** class used for testing purposes */
    private IntPermutationGenerator generator;
    /** array of expected results from generate for size of 1 to 4 */
-   int[][][] expected = { {}, {}, { { 1, 2 }, { 2, 1 } },
+   private static final int[][][] EXPECTED = { {}, {}, { { 1, 2 }, { 2, 1 } },
       { { 1, 2, 3 }, { 1, 3, 2 }, { 2, 1, 3 }, { 2, 3, 1 }, { 3, 1, 2 },
          { 3, 2, 1 } },
       { { 1, 2, 3, 4 }, { 1, 2, 4, 3 }, { 1, 3, 2, 4 }, { 1, 3, 4, 2 },
@@ -45,8 +45,8 @@ public class IntPermutationGeneratorTest {
          assertNotNull(generator);
 
          // test the contents of the generator
-         for (int p = 0; p < expected[size].length; p++)
-            equals(expected[size][p], generator.generate());
+         for (int p = 0; p < EXPECTED[size].length; p++)
+            equals(EXPECTED[size][p], generator.generate());
       }
    }
 
