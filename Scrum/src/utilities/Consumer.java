@@ -1,7 +1,7 @@
 package utilities;
 
 /**
- * Functional interface to accept one typed input and return nothing.
+ * Functional interface to accept one input and return nothing.
  * 
  * @author Jacob Malter
  *
@@ -12,12 +12,14 @@ public interface Consumer<T> {
 
    /**
     * Returns combintation of {@link #consume(Object)} from the invoking
-    * consumer followed by the given consumer. If the given consumer is null,
-    * throws NullPointerException.
+    * consumer followed by the given consumer.
+    * 
+    * If the given consumer is null, throws NullPointerException.
     * 
     * @param after
     *        other consumer
-    * @return composed consumer
+    * @return combintation of {@link #consume(Object)} from the invoking
+    *         consumer followed by the given consumer
     */
    default Consumer<T> after(Consumer<? super T> after) {
       return t -> {
@@ -27,7 +29,7 @@ public interface Consumer<T> {
    }
 
    /**
-    * Calls method on one typed input.
+    * Calls method on one input.
     * 
     * @param t
     *        the input

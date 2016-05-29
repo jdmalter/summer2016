@@ -1,11 +1,12 @@
-package model.productbacklogitem;
+package model;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import model.productbacklogitem.SizeProductBacklogItem.Size;
+import model.SizeProductBacklogItem;
+import model.SizeProductBacklogItem.Size;
 
 /**
  * Tests {@link SizeProductBacklogItem} class.
@@ -32,7 +33,7 @@ public class SizeProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.SizeProductBacklogItem#getSize()}.
+    * {@link model.SizeProductBacklogItem#getSize()}.
     */
    @Test
    public void testGetSize() {
@@ -42,7 +43,7 @@ public class SizeProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.SizeProductBacklogItem#setSize(model.productbacklogitem.SizeProductBacklogItem.Size)}
+    * {@link model.SizeProductBacklogItem#setSize(model.SizeProductBacklogItem.Size)}
     * .
     */
    @Test

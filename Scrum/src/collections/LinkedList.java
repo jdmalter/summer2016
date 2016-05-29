@@ -2,6 +2,8 @@ package collections;
 
 import java.util.NoSuchElementException;
 
+import utilities.Predicate;
+
 /**
  * Implements list interface with doubly linked nodes where each node refers to
  * the previous and next node in the list.
@@ -125,6 +127,41 @@ public class LinkedList<E> implements List<E> {
    }
 
    @Override
+   public boolean remove(E e) {
+      for (Node<E> current = head; current != null; current = current.next)
+         if (current.e == null ? e == null : current.e.equals(e)) {
+
+            // modify adjacent nodes to remove reference to node
+            if (size == 1) {
+               // only node in list
+               head = null;
+               tail = null;
+
+            } else if (current.prev == null) {
+               // first node in list
+               head = head.next;
+               head.prev = null;
+
+            } else if (current.next == null) {
+               // last node in list
+               tail = tail.prev;
+               tail.next = null;
+
+            } else {
+               // modify adjacent nodes to remove reference to node
+               current.prev.next = current.next;
+               current.next.prev = current.prev;
+               current = null;
+            }
+
+            size--;
+            return true;
+         }
+
+      return false;
+   }
+
+   @Override
    public E remove(int i) {
       if (i < 0 || i >= size)
          throw new IndexOutOfBoundsException(INVALID_ACCESS_INDEX);
@@ -190,6 +227,17 @@ public class LinkedList<E> implements List<E> {
          }
 
       };
+   }
+
+   @Override
+   public Iterator<E> select(Predicate<? super E> p) {
+      List<E> list = new LinkedList<E>();
+
+      forEach(e -> {
+         if (p.test(e)) list.add(e);
+      });
+
+      return list.iterator();
    }
 
    @Override

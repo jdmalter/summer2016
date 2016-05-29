@@ -1,4 +1,4 @@
-package model.productbacklogitem;
+package model;
 
 /**
  * Represents business value that consumes time and attention.

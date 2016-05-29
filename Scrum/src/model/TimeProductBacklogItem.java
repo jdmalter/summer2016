@@ -1,4 +1,4 @@
-package model.productbacklogitem;
+package model;
 
 /**
  * Extends ProductBacklogItem to include effort implemented by time in days.
@@ -9,7 +9,7 @@ package model.productbacklogitem;
  * @author Jacob Malter
  *
  */
-public class TimeProductBacklogItem extends StringProductBacklogItem {
+public final class TimeProductBacklogItem extends StringProductBacklogItem {
 
    /** an estimation of time in days */
    private byte time = 127;

@@ -26,10 +26,25 @@ public class ListTest {
    private static final int SIZE = 100;
 
    /**
+    * Test method for {@link collections.List#add(java.lang.Object)}.
+    */
+   @Test
+   public void testAddE() {
+      for (List<Integer> list : lists) {
+
+         for (int integer = 0; integer < SIZE; integer++) {
+            assertEquals(integer, list.size());
+            assertTrue(list.add(integer));
+            assertEquals(integer + 1, list.size());
+         }
+      }
+   }
+
+   /**
     * Test method for {@link collections.List#add(int, java.lang.Object)}.
     */
    @Test
-   public void testAdd() {
+   public void testAddIntE() {
       for (List<Integer> list : lists) {
 
          int half = SIZE / 2;
@@ -72,11 +87,11 @@ public class ListTest {
    }
 
    /**
-    * Test method for {@link collections.List#contains(Object)}.
+    * Test method for {@link collections.List#contains(java.lang.Object)}.
     */
    @Test
    public void testContains() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -90,11 +105,39 @@ public class ListTest {
    }
 
    /**
+    * Test method for {@link collections.Iterable#forEach(utilities.Consumer)}.
+    */
+   @Test
+   public void testForEach() {
+      testAddE();
+
+      for (List<Integer> list : lists) {
+
+         Integer[] integers = new Integer[SIZE];
+         list.forEach(i -> {
+            integers[SIZE - i - 1] = i;
+         });
+
+         for (int integer = 0; integer < SIZE; integer++)
+            assertEquals(list.get(SIZE - integer - 1), integers[integer]);
+
+         try {
+            list.forEach(null);
+            fail("consumer is null");
+         } catch (NullPointerException ex) {
+            // testing for nothing
+            for (int integer = 0; integer < SIZE; integer++)
+               assertEquals(list.get(SIZE - integer - 1), integers[integer]);
+         }
+      }
+   }
+
+   /**
     * Test method for {@link collections.List#get(int)}.
     */
    @Test
    public void testGet() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -125,7 +168,7 @@ public class ListTest {
     */
    @Test
    public void testIndexOf() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -139,11 +182,89 @@ public class ListTest {
    }
 
    /**
+    * Test method for {@link collections.List#isEmpty()}.
+    */
+   @Test
+   public void testIsEmpty() {
+      for (List<Integer> list : lists)
+         assertTrue(list.isEmpty());
+
+      testAddE();
+
+      for (List<Integer> list : lists)
+         assertFalse(list.isEmpty());
+   }
+
+   /**
+    * Test method for {@link collections.Iterable#iterator()}.
+    */
+   @Test
+   public void testIterator() {
+      testAddE();
+
+      for (List<Integer> list : lists) {
+
+         Integer[] integers = new Integer[SIZE];
+         int index = 0;
+         for (Iterator<Integer> it = list.iterator(); it.hasNext();) {
+            int i = it.next();
+            integers[index++] = i;
+         }
+
+         for (int integer = 0; integer < SIZE; integer++)
+            assertTrue(-1 < integers[integer]);
+
+         Iterator<Integer> it = list.iterator();
+         for (; it.hasNext(); it.next());
+         Integer i = null;
+
+         try {
+            it.next();
+            fail("iteration is done");
+         } catch (NoSuchElementException ex) {
+            assertNull(i);
+         }
+      }
+   }
+
+   /**
+    * Test method for {@link collections.List#remove(Object)}.
+    */
+   @Test
+   public void testRemoveE() {
+      testAddE();
+
+      for (List<Integer> list : lists) {
+
+         // add and remove into middle of list
+         int index = list.size() / 2;
+         list.add(index, -1);
+         assertTrue(list.remove(new Integer(-1)));
+
+         // remove at front of list
+         for (int integer = 0; integer < SIZE / 2; integer++) {
+            int size = list.size();
+            assertTrue(list.remove(new Integer(integer)));
+            assertEquals(size - 1, list.size());
+         }
+
+         // remove at back of list
+         for (int integer = 0; integer < SIZE / 2; integer++) {
+            int size = list.size();
+            assertTrue(list.remove(new Integer(SIZE - integer - 1)));
+            assertEquals(size - 1, list.size());
+         }
+
+         assertFalse(list.remove(null));
+      }
+   }
+
+   /**
     * Test method for {@link collections.List#remove(int)}.
     */
    @Test
-   public void testRemove() {
-      testAdd();
+   public void testRemoveInt() {
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -191,7 +312,7 @@ public class ListTest {
     */
    @Test
    public void testReverseForEach() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -219,7 +340,7 @@ public class ListTest {
     */
    @Test
    public void testReverseIterator() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -246,11 +367,28 @@ public class ListTest {
    }
 
    /**
+    * Test method for {@link collections.List#select(utilities.Predicate)}.
+    */
+   @Test
+   public void testSelect() {
+      testAddE();
+
+      for (List<Integer> list : lists) {
+
+         Iterator<Integer> selection = list.select(i -> true);
+         for (int integer = 0; integer < SIZE; integer++)
+            assertEquals(list.get(integer), selection.next());
+
+         assertFalse(list.select(i -> false).hasNext());
+      }
+   }
+
+   /**
     * Test method for {@link collections.List#set(int, java.lang.Object)}.
     */
    @Test
    public void testSet() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -280,11 +418,25 @@ public class ListTest {
    }
 
    /**
+    * Test method for {@link collections.List#size()}.
+    */
+   @Test
+   public void testSize() {
+      for (List<Integer> list : lists)
+         assertEquals(0, list.size());
+
+      testAddE();
+
+      for (List<Integer> list : lists)
+         assertEquals(SIZE, list.size());
+   }
+
+   /**
     * Test method for {@link collections.List#sublist(int, int)}.
     */
    @Test
    public void testSublist() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 
@@ -334,7 +486,7 @@ public class ListTest {
     */
    @Test
    public void testSwap() {
-      testAdd();
+      testAddE();
 
       for (List<Integer> list : lists) {
 

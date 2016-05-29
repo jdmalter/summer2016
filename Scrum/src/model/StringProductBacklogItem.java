@@ -1,4 +1,4 @@
-package model.productbacklogitem;
+package model;
 
 import java.util.Objects;
 

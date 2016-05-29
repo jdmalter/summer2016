@@ -1,4 +1,4 @@
-package model.productbacklogitem;
+package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -6,6 +6,10 @@ import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import model.ProductBacklogItem;
+import model.SizeProductBacklogItem;
+import model.TimeProductBacklogItem;
 
 /**
  * Tests classes which implement {@link ProductBacklogItem}.
@@ -31,7 +35,7 @@ public class ProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.ProductBacklogItem#getTitle()}.
+    * {@link model.ProductBacklogItem#getTitle()}.
     */
    @Test
    public void testGetTitle() {
@@ -41,7 +45,7 @@ public class ProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.ProductBacklogItem#getUserStory()}.
+    * {@link model.ProductBacklogItem#getUserStory()}.
     */
    @Test
    public void testGetUserStory() {
@@ -51,7 +55,7 @@ public class ProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.ProductBacklogItem#getAcceptanceCriteria()}
+    * {@link model.ProductBacklogItem#getAcceptanceCriteria()}
     * .
     */
    @Test
@@ -62,7 +66,7 @@ public class ProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.ProductBacklogItem#setTitle(java.lang.String)}
+    * {@link model.ProductBacklogItem#setTitle(java.lang.String)}
     * .
     */
    @Test
@@ -84,7 +88,7 @@ public class ProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.ProductBacklogItem#setUserStory(java.lang.String)}
+    * {@link model.ProductBacklogItem#setUserStory(java.lang.String)}
     * .
     */
    @Test
@@ -106,7 +110,7 @@ public class ProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.ProductBacklogItem#setAcceptanceCriteria(java.lang.String)}
+    * {@link model.ProductBacklogItem#setAcceptanceCriteria(java.lang.String)}
     * .
     */
    @Test

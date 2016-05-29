@@ -1,4 +1,4 @@
-package model.productbacklogitem;
+package model;
 
 import java.util.Objects;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Jacob Malter
  *
  */
-public class SizeProductBacklogItem extends StringProductBacklogItem {
+public final class SizeProductBacklogItem extends StringProductBacklogItem {
 
    /**
     * An estimation of cost and time to complete a Product Backlog Item.

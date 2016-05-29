@@ -1,9 +1,11 @@
-package model.productbacklogitem;
+package model;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import model.TimeProductBacklogItem;
 
 /**
  * Tests {@link TimeProductBacklogItem} class.
@@ -30,7 +32,7 @@ public class TimeProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.TimeProductBacklogItem#getTime()}.
+    * {@link model.TimeProductBacklogItem#getTime()}.
     */
    @Test
    public void testGetTime() {
@@ -40,7 +42,7 @@ public class TimeProductBacklogItemTest {
 
    /**
     * Test method for
-    * {@link model.productbacklogitem.TimeProductBacklogItem#setTime(byte)}.
+    * {@link model.TimeProductBacklogItem#setTime(byte)}.
     */
    @Test
    public void testSetTime() {

@@ -26,7 +26,7 @@ public class CalendarConflictsTest {
    /** list of expected results from findConflicts for one case */
    private static final List<String> EXPECTED = new LinkedList<String>();
 
-   {
+   static {
       // set up expected results
       EXPECTED.add("b");
       EXPECTED.add("c");

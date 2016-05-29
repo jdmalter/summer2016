@@ -104,7 +104,6 @@ public class IntPermutationGeneratorTest {
    /**
     * Computes n!. When {@code n < 0} is true, throws IllegalArgumentException.
     * 
-    * <p>
     * This implmentation uses naive recursion, but generating every permutation
     * practically prevents this methods from being called with large integers.
     * However, actual testing reveals that this implementation is very fast for

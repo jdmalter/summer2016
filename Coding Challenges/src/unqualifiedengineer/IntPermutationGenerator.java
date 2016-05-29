@@ -6,10 +6,8 @@ import java.util.Arrays;
  * "A generator that will return a new permutation of the integers between 1 and
  * size untill all permutations have been exhausted."
  * 
- * <p>
  * This implementation returns permutations in lexicographical order.
  * 
- * <p>
  * There are three details that help solve this problem.
  * <ol>
  * <li>Integers are in reverse sorted order until there is a decrease.</li>
@@ -19,12 +17,11 @@ import java.util.Arrays;
  * integer must be swapped with the decrease integer</li>
  * </ol>
  * 
- * <p>
  * Since there are n! permutations on n integers and each permutation takes O(n)
  * time to generate, generating every permutation with this algorithm takes
  * O(n!*n) time complexity.
  * 
- * @see <href>https://youtu.be/V7hHupttzVk</a>
+ * @see <href>https://youtu.be/V7hHupttzVk</href>
  * @author Jacob Malter
  *
  */

@@ -8,15 +8,12 @@ import java.util.Objects;
 /**
  * "Given a list of calendar events, determine if any events conflict."
  * 
- * <p>
  * This implementation returns conflicts in sorted order.
  * 
- * <p>
  * There is a conflict between two events when the time intervals of those
  * events overlap, partially or completely. Multiple adjacent conflicts are
  * considered one conflict.
  * 
- * <p>
  * This algorithm runs in O(n) time complexity by traversing events only once.
  * 
  * @see <href>https://youtu.be/olK6SWl8UrM</href>
@@ -43,7 +40,6 @@ public final class CalendarConflicts {
       /**
        * Checks argument validity and sets fields to the respective parameters.
        * 
-       * <p>
        * If {@code start >= end} is true, throws IllegalArgumentException, and
        * if {@code id == null} is true, throws NullPointerException.
        * 
@@ -56,8 +52,8 @@ public final class CalendarConflicts {
        */
       public Event(String id, int start, int end) {
          if (start >= end) throw new IllegalArgumentException(
-            "start must be strictly less than end");
-         this.id = Objects.requireNonNull(id, "id must be non-null");
+            "start must not be greater than or equal to end");
+         this.id = Objects.requireNonNull(id, "id must not be null");
          this.start = start;
          this.end = end;
       }
@@ -71,11 +67,9 @@ public final class CalendarConflicts {
     * Checks for null events and sets calendar field to a copy of the given
     * calendar array.
     * 
-    * <p>
     * This implementation assumes that the given calendar is already sorted.
     * Otherwise, any methods will not function as promised.
     * 
-    * <p>
     * If the given calendar is null or any event in the given calendar is null,
     * throws NullPointerException.
     * 
@@ -84,13 +78,20 @@ public final class CalendarConflicts {
     */
    public CalendarConflicts(Event[] calendar) {
       // Check for null parameters and throw exceptions
-      Objects.requireNonNull(calendar, "events must be non-null");
+      Objects.requireNonNull(calendar, "events must not be null");
       for (Event event : calendar)
-         Objects.requireNonNull(event, "individual events must be non-null");
+         Objects.requireNonNull(event, "individual events must not be null");
 
       this.calendar = Arrays.copyOf(calendar, calendar.length);
    }
 
+   /**
+    * Returns an ordered collection of primary identification for events have
+    * conflicts with other events.
+    * 
+    * @return an ordered collection of primary identification for events have
+    *         conflicts with other events
+    */
    public List<String> findConflicts() {
       List<String> conflicts = new LinkedList<String>();
       if (calendar.length == 0 || calendar.length == 1) return conflicts;

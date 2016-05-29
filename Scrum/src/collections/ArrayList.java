@@ -2,6 +2,8 @@ package collections;
 
 import java.util.NoSuchElementException;
 
+import utilities.Predicate;
+
 /**
  * Implements list interface with an array. When the number of elements equals
  * one less than the length of the array, the array's capacity is doubled.
@@ -72,6 +74,21 @@ public class ArrayList<E> implements List<E> {
    }
 
    @Override
+   public boolean remove(E e) {
+      for (int i = 0; i < size; i++)
+         if (elements[i] == null ? e == null : elements[i].equals(e)) {
+
+            // shift position of every element after i
+            for (int n = i; n < size - 1; n++)
+               elements[n] = elements[n + 1];
+            elements[--size] = null; // remove duplicated element
+            return true;
+         }
+
+      return false;
+   }
+
+   @Override
    public E remove(int i) {
       if (i < 0 || i >= size)
          throw new IndexOutOfBoundsException(INVALID_ACCESS_INDEX);
@@ -80,7 +97,7 @@ public class ArrayList<E> implements List<E> {
       // shift position of every element after i
       for (int n = i; n < size - 1; n++)
          elements[n] = elements[n + 1];
-      elements[--size] = null;
+      elements[--size] = null; // remove duplicated element
       return result;
    }
 
@@ -103,6 +120,17 @@ public class ArrayList<E> implements List<E> {
          }
 
       };
+   }
+
+   @Override
+   public Iterator<E> select(Predicate<? super E> p) {
+      List<E> list = new ArrayList<E>();
+
+      forEach(e -> {
+         if (p.test(e)) list.add(e);
+      });
+
+      return list.iterator();
    }
 
    @Override
