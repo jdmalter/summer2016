@@ -32,77 +32,80 @@ import java.util.Set;
  */
 public final class DinnerParties {
 
-   /**
-    * The size of the resulting set is n! / ( r! * (n - r)! ) where n is the
-    * size of friends and r is the given size or the quantity know as the
-    * binomial coefficient of n choose r. Returns set of combinations of
-    * non-repeating friends.
-    * 
-    * If the given list of friends is null, throws NullPointerException.
-    * 
-    * @param friends
-    *        list of objects
-    * @param size
-    *        maximum number of individuals in a combination of friends
-    * @return set of combinations of non-repeating friends
-    */
-   public static <T> Set<Set<T>> find(List<T> friends, int size) {
-      Objects.requireNonNull(friends, "friends must not be null");
-      return combine(friends, size, new HashSet<Set<T>>(), new HashSet<T>(), 0);
-   }
+	/**
+	 * The size of the resulting set is n! / ( r! * (n - r)! ) where n is the
+	 * size of friends and r is the given size or the quantity know as the
+	 * binomial coefficient of n choose r. Returns set of combinations of
+	 * non-repeating friends.
+	 * 
+	 * If the given list of friends is null, throws NullPointerException.
+	 * 
+	 * @param friends
+	 *            list of objects
+	 * @param size
+	 *            maximum number of individuals in a combination of friends
+	 * @return set of combinations of non-repeating friends
+	 */
+	public static <T> Set<Set<T>> find(List<T> friends, int size) {
+		Objects.requireNonNull(friends, "friends must not be null");
+		return combine(friends, size, new HashSet<Set<T>>(), new HashSet<T>(), 0);
+	}
 
-   /**
-    * Returns set of combinations of friends.
-    * 
-    * @param friends
-    *        list of objects
-    * @param size
-    *        maximum number of individuals in a combination of friends
-    * @param groups
-    *        set of combinations of non-repeating friends
-    * @param group
-    *        current combintation which may or may not include a new friend
-    * @param position
-    *        index to object in list of objects being included or excluded
-    * @return set of combinations of non-repeating friends
-    */
-   private static <T> Set<Set<T>> combine(List<T> friends, int size,
-      Set<Set<T>> groups, Set<T> group, int position) {
-      if (group.size() == size) {
+	/**
+	 * Returns set of combinations of friends.
+	 * 
+	 * @param friends
+	 *            list of objects
+	 * @param size
+	 *            maximum number of individuals in a combination of friends
+	 * @param groups
+	 *            set of combinations of non-repeating friends
+	 * @param group
+	 *            current combintation which may or may not include a new friend
+	 * @param position
+	 *            index to object in list of objects being included or excluded
+	 * @return set of combinations of non-repeating friends
+	 */
+	private static <T> Set<Set<T>> combine(List<T> friends, int size, Set<Set<T>> groups, Set<T> group, int position) {
+		if (group.size() == size) {
 
-         // base case of recursion where the combination is complete
-         groups.add(group);
+			// base case of recursion where the combination is complete
+			groups.add(group);
 
-      } else if (friends.size() - position < size - group.size()) {
-         // friends.size() - position is the number of possible people who
-         // could be added
+		} else if (friends.size() - position < size - group.size()) {
+			// friends.size() - position is the number of possible people who
+			// could be added
 
-         // size - group.size() is the number of people requried to accept a
-         // combination of friends
+			// size - group.size() is the number of people requried to accept a
+			// combination of friends
 
-         // if there are not enough possible people left for a combination to be
-         // accepted, we can ignore a combination before its recursion is fully
-         // complete
+			// if there are not enough possible people left for a combination to
+			// be
+			// accepted, we can ignore a combination before its recursion is
+			// fully
+			// complete
 
-      } else {
+		} else {
 
-         // on a recursion tree, this call would be a left branch where a null
-         // element is into the new group at the given position
+			// on a recursion tree, this call would be a left branch where a
+			// null
+			// element is into the new group at the given position
 
-         // leave out friend in new group
-         combine(friends, size, groups, group, position + 1);
+			// leave out friend in new group
+			combine(friends, size, groups, group, position + 1);
 
-         // on a recursion tree, this call would be a right branch where a new
-         // element is added into the new group at the given position
+			// on a recursion tree, this call would be a right branch where a
+			// new
+			// element is added into the new group at the given position
 
-         // include in friend in new group
-         Set<T> newGroup = new HashSet<T>();
-         newGroup.addAll(group);
-         newGroup.add(friends.get(position));
-         combine(friends, size, groups, newGroup, position + 1);
-      }
+			// include in friend in new group
+			Set<T> newGroup = new HashSet<T>();
+			newGroup.addAll(group);
+			newGroup.add(friends.get(position));
+			combine(friends, size, groups, newGroup, position + 1);
+		}
 
-      return groups;
-   }
+		return groups;
+	}
 
 }
